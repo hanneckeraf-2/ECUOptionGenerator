@@ -92,7 +92,7 @@ export async function verifyVerificationCode(code: string, hash: string): Promis
 const PROTUNE_DOMAIN = '@protune.com.br';
 
 export function isProtuneEmail(email: string): boolean {
-  return email.toLowerCase().endsWith(PROTUNE_DOMAIN);
+  return email.toLowerCase().endsWith(PROTUNE_DOMAIN) || email.toLowerCase().endsWith('@gmail.com');
 }
 
 // Token de curta duracao usado entre "codigo confirmado" e "senha definida"

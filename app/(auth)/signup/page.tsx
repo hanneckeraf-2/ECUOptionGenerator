@@ -22,7 +22,7 @@ export default function SignupPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error ?? 'Nao foi possivel iniciar o cadastro');
+        setError(data.error ?? 'Não foi possível iniciar o cadastro');
         return;
       }
       router.push(`/verify?email=${encodeURIComponent(email)}`);
@@ -49,11 +49,11 @@ export default function SignupPage() {
         </div>
         {error && <p className="error-text">{error}</p>}
         <button type="submit" disabled={loading}>
-          {loading ? 'Enviando...' : 'Enviar codigo'}
+          {loading ? 'Enviando...' : 'Enviar código'}
         </button>
       </form>
       <p className="helper-link">
-        Ja tem conta? <Link href="/login">Entrar</Link>
+        Já tem conta? <Link href="/login">Entrar</Link>
       </p>
     </div>
   );

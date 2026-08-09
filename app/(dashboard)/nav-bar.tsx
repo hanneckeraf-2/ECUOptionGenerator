@@ -19,12 +19,12 @@ export default function NavBar({ email, role }: { email: string; role: Role }) {
   return (
     <nav className="appnav">
       <Link href="/generate" className={isActive('/generate') ? 'active' : ''}>
-        Gerar Codigo
+        Gerar Código
       </Link>
       {role === 'ADMIN' && (
         <>
           <Link href="/admin/users" className={isActive('/admin/users') ? 'active' : ''}>
-            Usuarios
+            Usuários
           </Link>
           <Link href="/admin/models" className={isActive('/admin/models') ? 'active' : ''}>
             Modelos
