@@ -46,7 +46,7 @@ export default function UsersTable({
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error ?? 'Nao foi possivel atualizar o usuario');
+        setError(data.error ?? 'Não foi possível atualizar o usuário');
         return;
       }
       router.refresh();

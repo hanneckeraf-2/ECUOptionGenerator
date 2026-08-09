@@ -48,7 +48,7 @@ export default function GenerateForm({
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error ?? 'Nao foi possivel gerar o codigo');
+        setError(data.error ?? 'Não foi possível gerar o codigo');
         return;
       }
       setResults((prev) => [...(data.results as Result[]), ...prev]);
@@ -76,7 +76,7 @@ export default function GenerateForm({
           </select>
         </div>
         <div className="field">
-          <label htmlFor="serial">Numero de serie (15 caracteres)</label>
+          <label htmlFor="serial">Número de série (15 caracteres)</label>
           <input
             id="serial"
             required
@@ -91,9 +91,9 @@ export default function GenerateForm({
           />
         </div>
         <div className="field">
-          <label htmlFor="feature">Opcao</label>
+          <label htmlFor="feature">Opção</label>
           <select id="feature" value={featureId} onChange={(e) => setFeatureId(e.target.value)}>
-            <option value="ALL">Todas as opcoes</option>
+            <option value="ALL">Todas as opções</option>
             {features.map((f) => (
               <option key={f.id} value={f.id}>
                 {f.name}
@@ -110,7 +110,7 @@ export default function GenerateForm({
         <label>Log</label>
         <pre className="log-output">
           {results.length === 0
-            ? 'Os codigos gerados aparecem aqui.'
+            ? 'Os códigos gerados aparecem aqui.'
             : results.map((r) => `${r.code}  -> ${r.featureName}`).join('\n')}
         </pre>
       </div>

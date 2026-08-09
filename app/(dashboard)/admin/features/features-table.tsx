@@ -88,9 +88,9 @@ export default function FeaturesTable({ features }: { features: FeatureRow[] }) 
       </form>
       {error && <p className="error-text">{error}</p>}
       <p style={{ fontSize: '0.85rem', opacity: 0.75, marginBottom: 12 }}>
-        O numero de cada feature e fixo e nunca e reaproveitado, pois e usado no algoritmo de
-        geracao de codigo. &quot;Remover&quot; apenas desativa a feature, que deixa de aparecer na tela
-        de geracao de codigo.
+        O número de cada feature é fixo e nunca é reaproveitado, pois é usado no algoritmo de
+        geração de codigo. &quot;Remover&quot; apenas desativa a feature, que deixa de aparecer na tela
+        de geração de codigo.
       </p>
       <table className="data-table">
         <thead>

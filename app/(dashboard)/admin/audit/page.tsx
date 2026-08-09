@@ -56,8 +56,8 @@ export default async function AdminAuditPage({
         <thead>
           <tr>
             <th>Data</th>
-            <th>Acao</th>
-            <th>Usuario</th>
+            <th>Ação</th>
+            <th>Usuário</th>
             <th>Detalhes</th>
             <th>IP</th>
           </tr>

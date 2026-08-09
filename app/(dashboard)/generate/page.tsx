@@ -9,7 +9,7 @@ export default async function GeneratePage() {
 
   return (
     <div className="section">
-      <h2>Gerar Codigo de Autenticacao</h2>
+      <h2>Gerar Código de Autenticação</h2>
       <GenerateForm
         models={models.map((m) => ({ id: m.id, productCode: m.productCode, name: m.name }))}
         features={features.map((f) => ({ id: f.id, featureNumber: f.featureNumber, name: f.name }))}

@@ -11,7 +11,7 @@ export default async function AdminUsersPage() {
 
   return (
     <div className="section">
-      <h2>Usuarios</h2>
+      <h2>Usuários</h2>
       <UsersTable
         users={users.map((u) => ({ ...u, createdAt: u.createdAt.toISOString() }))}
         currentUserId={currentUser.id}

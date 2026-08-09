@@ -56,7 +56,7 @@ export default function ModelsTable({ models }: { models: ModelRow[] }) {
   }
 
   async function handleDelete(model: ModelRow) {
-    if (!window.confirm(`Remover o modelo ${model.productCode}? Esta acao nao pode ser desfeita.`)) return;
+    if (!window.confirm(`Remover o modelo ${model.productCode}? Esta ação não pode ser desfeita.`)) return;
     setPendingId(model.id);
     try {
       const res = await fetch(`/api/admin/models/${model.id}`, { method: 'DELETE' });
@@ -70,7 +70,7 @@ export default function ModelsTable({ models }: { models: ModelRow[] }) {
     <div>
       <form onSubmit={handleCreate} className="inline-form">
         <div className="field">
-          <label htmlFor="productCode">Codigo de produto (11 caracteres)</label>
+          <label htmlFor="productCode">Código de produto (11 caracteres)</label>
           <input
             id="productCode"
             required
@@ -98,7 +98,7 @@ export default function ModelsTable({ models }: { models: ModelRow[] }) {
       <table className="data-table">
         <thead>
           <tr>
-            <th>Codigo</th>
+            <th>Código</th>
             <th>Nome</th>
             <th>Status</th>
             <th></th>
