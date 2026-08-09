@@ -1,0 +1,101 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum UserStatus {
+  PENDING_VERIFICATION
+  ACTIVE
+  DISABLED
+}
+
+enum AuditAction {
+  USER_SIGNUP
+  EMAIL_VERIFIED
+  PASSWORD_SET
+  LOGIN_SUCCESS
+  LOGIN_FAILED
+  ADMIN_GRANTED
+  ADMIN_REVOKED
+  MODEL_CREATED
+  MODEL_UPDATED
+  MODEL_DELETED
+  FEATURE_CREATED
+  FEATURE_UPDATED
+  FEATURE_DEACTIVATED
+  CODE_GENERATED
+}
+
+model User {
+  id                  String             @id @default(cuid())
+  email               String             @unique
+  passwordHash        String?
+  role                Role               @default(USER)
+  status              UserStatus         @default(PENDING_VERIFICATION)
+  failedLoginAttempts Int                @default(0)
+  lockedUntil         DateTime?
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+  verificationCodes   VerificationCode[]
+  auditLogs           AuditLog[]         @relation("ActorAuditLogs")
+}
+
+model VerificationCode {
+  id         String    @id @default(cuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  codeHash   String
+  expiresAt  DateTime
+  attempts   Int       @default(0)
+  consumedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([userId])
+}
+
+model ProductModel {
+  id          String   @id @default(cuid())
+  productCode String   @unique
+  name        String
+  isActive    Boolean  @default(true)
+  createdBy   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Feature {
+  id            String   @id @default(cuid())
+  featureNumber Int      @unique
+  name          String
+  isActive      Boolean  @default(true)
+  createdBy     String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model AuditLog {
+  id            String      @id @default(cuid())
+  actorUserId   String?
+  actor         User?       @relation("ActorAuditLogs", fields: [actorUserId], references: [id], onDelete: SetNull)
+  action        AuditAction
+  entityType    String?
+  entityDetails Json?
+  ipAddress     String?
+  createdAt     DateTime    @default(now())
+
+  @@index([actorUserId])
+  @@index([action])
+  @@index([createdAt])
+}
