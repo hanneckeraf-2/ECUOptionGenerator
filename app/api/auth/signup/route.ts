@@ -15,7 +15,7 @@ const RESEND_COOLDOWN_SECONDS = 60;
 export async function POST(request: Request) {
   const parsed = bodySchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) {
-    return NextResponse.json({ error: 'E-mail invalido' }, { status: 400 });
+    return NextResponse.json({ error: 'E-mail inválido' }, { status: 400 });
   }
   const email = parsed.data.email.toLowerCase().trim();
 

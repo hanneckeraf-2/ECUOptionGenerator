@@ -19,14 +19,14 @@ const MAX_ATTEMPTS = 5;
 export async function POST(request: Request) {
   const parsed = bodySchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) {
-    return NextResponse.json({ error: 'Dados invalidos' }, { status: 400 });
+    return NextResponse.json({ error: 'Dados inválidos' }, { status: 400 });
   }
   const email = parsed.data.email.toLowerCase().trim();
   const { code } = parsed.data;
 
   const user = await prisma.user.findUnique({ where: { email } });
   if (!user || user.status !== 'PENDING_VERIFICATION') {
-    return NextResponse.json({ error: 'Codigo invalido ou expirado' }, { status: 400 });
+    return NextResponse.json({ error: 'Codigo inválido ou expirado' }, { status: 400 });
   }
 
   const verification = await prisma.verificationCode.findFirst({
@@ -35,12 +35,12 @@ export async function POST(request: Request) {
   });
 
   if (!verification || verification.expiresAt < new Date()) {
-    return NextResponse.json({ error: 'Codigo invalido ou expirado' }, { status: 400 });
+    return NextResponse.json({ error: 'Codigo inválido ou expirado' }, { status: 400 });
   }
 
   if (verification.attempts >= MAX_ATTEMPTS) {
     return NextResponse.json(
-      { error: 'Numero maximo de tentativas excedido. Solicite um novo codigo.' },
+      { error: 'Número máximo de tentativas excedido. Solicite um novo código.' },
       { status: 429 }
     );
   }
@@ -51,7 +51,7 @@ export async function POST(request: Request) {
       where: { id: verification.id },
       data: { attempts: { increment: 1 } },
     });
-    return NextResponse.json({ error: 'Codigo incorreto' }, { status: 400 });
+    return NextResponse.json({ error: 'Código incorreto' }, { status: 400 });
   }
 
   await prisma.verificationCode.update({

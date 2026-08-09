@@ -2,7 +2,7 @@
 
 Migracao web do gerador de codigos de autenticacao ECU (antigo app VB6 em
 `../ECUOptGenerator.vbp`). Gera codigos no formato `XXXX-XXXX` a partir de
-Modelo + Numero de Serie + Feature, usando o mesmo algoritmo (CRC16 +
+Modelo + Número de Série + Feature, usando o mesmo algoritmo (CRC16 +
 checksum + KeeLoq de 528 rounds) do app original - ver `lib/keeloq.ts` e os
 testes de regressao em `lib/keeloq.test.ts`, que comparam a saida com o
 `Encrypter.exe` legado.

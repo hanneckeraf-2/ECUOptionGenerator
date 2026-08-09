@@ -23,7 +23,7 @@ export default function LoginPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error ?? 'Nao foi possivel entrar');
+        setError(data.error ?? 'Não foi possível entrar');
         return;
       }
       router.push('/generate');

@@ -75,9 +75,9 @@ function hex4(n: number): string {
 export interface GenerateCodeParams {
   /** Codigo do modelo, deve ter exatamente 11 caracteres (ex: "800.1004.02"). */
   model11: string;
-  /** Numero de serie, deve ter exatamente 15 caracteres. */
+  /** Número de serie, deve ter exatamente 15 caracteres. */
   serial15: string;
-  /** Numero da feature (FNumber), 1-based, igual ao indice original na combo "Feature". */
+  /** Número da feature (FNumber), 1-based, igual ao indice original na combo "Feature". */
   featureNumber: number;
   keyHi: number;
   keyLo: number;

@@ -14,19 +14,19 @@ const bodySchema = z.object({
 function getKeeLoqKey(): { keyHi: number; keyLo: number } {
   const hi = process.env.KEELOQ_KEY_HI;
   const lo = process.env.KEELOQ_KEY_LO;
-  if (!hi || !lo) throw new Error('Chave KeeLoq nao configurada');
+  if (!hi || !lo) throw new Error('Chave KeeLoq não configurada');
   return { keyHi: Number(hi), keyLo: Number(lo) };
 }
 
 export async function POST(request: Request) {
   const session = await getSession();
   if (!session) {
-    return NextResponse.json({ error: 'Nao autenticado' }, { status: 401 });
+    return NextResponse.json({ error: 'Não autenticado' }, { status: 401 });
   }
 
   const parsed = bodySchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) {
-    return NextResponse.json({ error: 'Dados invalidos' }, { status: 400 });
+    return NextResponse.json({ error: 'Dados inválidos' }, { status: 400 });
   }
 
   const { productModelId, featureId } = parsed.data;
@@ -37,11 +37,11 @@ export async function POST(request: Request) {
 
   const model = await prisma.productModel.findUnique({ where: { id: productModelId } });
   if (!model || !model.isActive) {
-    return NextResponse.json({ error: 'Modelo invalido' }, { status: 400 });
+    return NextResponse.json({ error: 'Modelo inválido' }, { status: 400 });
   }
   if (model.productCode.length !== 11) {
     return NextResponse.json(
-      { error: 'Codigo de produto do modelo esta com tamanho invalido (esperado 11 caracteres)' },
+      { error: 'Código de produto do modelo está com tamanho inválido (esperado 11 caracteres)' },
       { status: 500 }
     );
   }
@@ -54,7 +54,7 @@ export async function POST(request: Request) {
           .then((f) => (f && f.isActive ? [f] : []));
 
   if (features.length === 0) {
-    return NextResponse.json({ error: 'Nenhuma opcao valida selecionada' }, { status: 400 });
+    return NextResponse.json({ error: 'Nenhuma opção válida selecionada' }, { status: 400 });
   }
 
   const { keyHi, keyLo } = getKeeLoqKey();

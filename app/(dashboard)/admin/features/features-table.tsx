@@ -29,7 +29,7 @@ export default function FeaturesTable({ features }: { features: FeatureRow[] }) 
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error ?? 'Nao foi possivel criar a feature');
+        setError(data.error ?? 'Não foi possível criar a feature');
         return;
       }
       setName('');

@@ -24,7 +24,7 @@ export default function VerifyForm({ initialEmail }: { initialEmail: string }) {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error ?? 'Nao foi possivel confirmar o codigo');
+        setError(data.error ?? 'Não foi possível confirmar o código');
         return;
       }
       router.push('/set-password');
@@ -43,16 +43,16 @@ export default function VerifyForm({ initialEmail }: { initialEmail: string }) {
     });
     const data = await res.json();
     if (!res.ok) {
-      setError(data.error ?? 'Nao foi possivel reenviar o codigo');
+      setError(data.error ?? 'Não foi possível reenviar o código');
       return;
     }
-    setInfo('Codigo reenviado. Confira sua caixa de entrada.');
+    setInfo('Código reenviado. Confira sua caixa de entrada.');
   }
 
   return (
     <div className="card">
       <h1>Confirmar e-mail</h1>
-      <p className="subtitle">Informe o codigo de 6 digitos enviado para seu e-mail</p>
+      <p className="subtitle">Informe o código de 6 dígitos enviado para seu e-mail</p>
       <form onSubmit={handleSubmit}>
         <div className="field">
           <label htmlFor="email">E-mail</label>
@@ -65,7 +65,7 @@ export default function VerifyForm({ initialEmail }: { initialEmail: string }) {
           />
         </div>
         <div className="field">
-          <label htmlFor="code">Codigo</label>
+          <label htmlFor="code">Código</label>
           <input
             id="code"
             inputMode="numeric"
@@ -84,9 +84,9 @@ export default function VerifyForm({ initialEmail }: { initialEmail: string }) {
         </button>
       </form>
       <p className="helper-link">
-        Nao recebeu?{' '}
+        Não recebeu?{' '}
         <a onClick={handleResend} style={{ cursor: 'pointer', color: '#0070f3', fontWeight: 600 }}>
-          Reenviar codigo
+          Reenviar código
         </a>
       </p>
     </div>

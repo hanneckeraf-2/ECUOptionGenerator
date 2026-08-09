@@ -15,19 +15,19 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   const { id } = await params;
   const parsed = bodySchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) {
-    return NextResponse.json({ error: 'Dados invalidos' }, { status: 400 });
+    return NextResponse.json({ error: 'Dados inválidos' }, { status: 400 });
   }
 
   const target = await prisma.user.findUnique({ where: { id } });
   if (!target) {
-    return NextResponse.json({ error: 'Usuario nao encontrado' }, { status: 404 });
+    return NextResponse.json({ error: 'Usuario não encontrado' }, { status: 404 });
   }
 
   if (target.role === 'ADMIN' && parsed.data.role === 'USER') {
     const adminCount = await prisma.user.count({ where: { role: 'ADMIN' } });
     if (adminCount <= 1) {
       return NextResponse.json(
-        { error: 'Nao e possivel remover o ultimo administrador do sistema' },
+        { error: 'Não é possível remover o último administrador do sistema' },
         { status: 400 }
       );
     }

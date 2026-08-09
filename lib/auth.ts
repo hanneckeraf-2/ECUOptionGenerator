@@ -10,7 +10,7 @@ const SESSION_MAX_AGE_SECONDS = 60 * 60 * 8; // 8h
 
 function getJwtSecret(): string {
   const secret = process.env.JWT_SECRET;
-  if (!secret) throw new Error('JWT_SECRET nao configurado');
+  if (!secret) throw new Error('JWT_SECRET não configurado');
   return secret;
 }
 
@@ -59,7 +59,7 @@ export async function requireAdminSession(): Promise<SessionPayload | null> {
   return session;
 }
 
-/** Usar em Server Components de paginas /admin/*: redireciona quem nao e admin. */
+/** Usar em Server Components de paginas /admin/*: redireciona quem não e admin. */
 export async function requireAdminPage(): Promise<User> {
   const user = await getCurrentUser();
   if (!user) redirect('/login');
@@ -96,7 +96,7 @@ export function isProtuneEmail(email: string): boolean {
 }
 
 // Token de curta duracao usado entre "codigo confirmado" e "senha definida"
-// no fluxo de primeiro acesso, para nao precisar reenviar o codigo por e-mail
+// no fluxo de primeiro acesso, para não precisar reenviar o codigo por e-mail
 // ao definir a senha.
 export const VERIFY_TOKEN_COOKIE_NAME = 'eog_verify';
 const VERIFY_TOKEN_TTL_SECONDS = 60 * 10;

@@ -18,12 +18,12 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   const { id } = await params;
   const parsed = patchSchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) {
-    return NextResponse.json({ error: 'Dados invalidos' }, { status: 400 });
+    return NextResponse.json({ error: 'Dados inválidos' }, { status: 400 });
   }
 
   const existing = await prisma.productModel.findUnique({ where: { id } });
   if (!existing) {
-    return NextResponse.json({ error: 'Modelo nao encontrado' }, { status: 404 });
+    return NextResponse.json({ error: 'Modelo não encontrado' }, { status: 404 });
   }
 
   const model = await prisma.productModel.update({ where: { id }, data: parsed.data });
@@ -48,7 +48,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
   const { id } = await params;
   const model = await prisma.productModel.findUnique({ where: { id } });
   if (!model) {
-    return NextResponse.json({ error: 'Modelo nao encontrado' }, { status: 404 });
+    return NextResponse.json({ error: 'Modelo não encontrado' }, { status: 404 });
   }
 
   await prisma.productModel.delete({ where: { id } });

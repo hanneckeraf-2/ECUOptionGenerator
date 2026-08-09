@@ -18,12 +18,12 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   const { id } = await params;
   const parsed = patchSchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) {
-    return NextResponse.json({ error: 'Dados invalidos' }, { status: 400 });
+    return NextResponse.json({ error: 'Dados inválidos' }, { status: 400 });
   }
 
   const before = await prisma.feature.findUnique({ where: { id } });
   if (!before) {
-    return NextResponse.json({ error: 'Feature nao encontrada' }, { status: 404 });
+    return NextResponse.json({ error: 'Feature não encontrada' }, { status: 404 });
   }
 
   const feature = await prisma.feature.update({ where: { id }, data: parsed.data });

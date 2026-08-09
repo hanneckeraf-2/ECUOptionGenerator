@@ -14,7 +14,7 @@ export default function SetPasswordPage() {
     e.preventDefault();
     setError(null);
     if (password !== confirmPassword) {
-      setError('As senhas nao coincidem');
+      setError('As senhas não coincidem');
       return;
     }
     setLoading(true);
@@ -26,7 +26,7 @@ export default function SetPasswordPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error ?? 'Nao foi possivel definir a senha');
+        setError(data.error ?? 'Não foi possível definir a senha');
         return;
       }
       router.push('/login');

@@ -20,7 +20,7 @@ const LOCKOUT_MINUTES = 15;
 export async function POST(request: Request) {
   const parsed = bodySchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) {
-    return NextResponse.json({ error: 'Dados invalidos' }, { status: 400 });
+    return NextResponse.json({ error: 'Dados inválidos' }, { status: 400 });
   }
   const email = parsed.data.email.toLowerCase().trim();
   const ipAddress = getClientIp(request);
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
       entityDetails: { email },
       ipAddress,
     });
-    return NextResponse.json({ error: 'E-mail ou senha invalidos' }, { status: 401 });
+    return NextResponse.json({ error: 'E-mail ou senha inválidos' }, { status: 401 });
   }
 
   if (user.lockedUntil && user.lockedUntil > new Date()) {
@@ -60,7 +60,7 @@ export async function POST(request: Request) {
       entityDetails: { email },
       ipAddress,
     });
-    return NextResponse.json({ error: 'E-mail ou senha invalidos' }, { status: 401 });
+    return NextResponse.json({ error: 'E-mail ou senha inválidos' }, { status: 401 });
   }
 
   await prisma.user.update({

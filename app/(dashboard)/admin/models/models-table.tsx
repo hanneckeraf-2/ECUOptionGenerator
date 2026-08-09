@@ -30,7 +30,7 @@ export default function ModelsTable({ models }: { models: ModelRow[] }) {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error ?? 'Nao foi possivel criar o modelo');
+        setError(data.error ?? 'Não foi possível criar o modelo');
         return;
       }
       setProductCode('');
