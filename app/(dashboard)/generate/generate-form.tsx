@@ -19,6 +19,7 @@ interface Result {
   featureName: string;
   code: string;
   serial: string;
+  productCode: string;
 }
 
 export default function GenerateForm({
@@ -52,14 +53,23 @@ export default function GenerateForm({
         setError(data.error ?? 'Não foi possível gerar o codigo');
         return;
       }
-      setResults((data.results as Omit<Result, 'serial'>[]).map((r) => ({ ...r, serial })));
+      const productCode = models.find((m) => m.id === productModelId)?.productCode ?? '';
+      setResults(
+        (data.results as Omit<Result, 'serial' | 'productCode'>[]).map((r) => ({
+          ...r,
+          serial,
+          productCode,
+        })),
+      );
     } finally {
       setLoading(false);
     }
   }
 
   function copyLog() {
-    const text = results.map((r) => `${r.code}  -> ${r.serial} - ${r.featureName}`).join('\n');
+    const text = results
+      .map((r) => `${r.code}  -> ${r.productCode} ${r.serial} - ${r.featureName}`)
+      .join('\n');
     void navigator.clipboard.writeText(text);
   }
 
@@ -112,7 +122,9 @@ export default function GenerateForm({
         <pre className="log-output">
           {results.length === 0
             ? 'Os códigos gerados aparecem aqui.'
-            : results.map((r) => `${r.code}  -> ${r.serial} - ${r.featureName}`).join('\n')}
+            : results
+                .map((r) => `${r.code}  -> ${r.productCode} ${r.serial} - ${r.featureName}`)
+                .join('\n')}
         </pre>
       </div>
       {results.length > 0 && (
