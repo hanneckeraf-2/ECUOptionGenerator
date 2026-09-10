@@ -18,6 +18,7 @@ interface Result {
   featureNumber: number;
   featureName: string;
   code: string;
+  serial: string;
 }
 
 export default function GenerateForm({
@@ -51,14 +52,14 @@ export default function GenerateForm({
         setError(data.error ?? 'Não foi possível gerar o codigo');
         return;
       }
-      setResults((prev) => [...(data.results as Result[]), ...prev]);
+      setResults((data.results as Omit<Result, 'serial'>[]).map((r) => ({ ...r, serial })));
     } finally {
       setLoading(false);
     }
   }
 
   function copyLog() {
-    const text = results.map((r) => `${r.code}  -> ${r.featureName}`).join('\n');
+    const text = results.map((r) => `${r.code}  -> ${r.serial} - ${r.featureName}`).join('\n');
     void navigator.clipboard.writeText(text);
   }
 
@@ -111,7 +112,7 @@ export default function GenerateForm({
         <pre className="log-output">
           {results.length === 0
             ? 'Os códigos gerados aparecem aqui.'
-            : results.map((r) => `${r.code}  -> ${r.featureName}`).join('\n')}
+            : results.map((r) => `${r.code}  -> ${r.serial} - ${r.featureName}`).join('\n')}
         </pre>
       </div>
       {results.length > 0 && (
