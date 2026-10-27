@@ -36,6 +36,13 @@ enum AuditAction {
   FEATURE_UPDATED
   FEATURE_DEACTIVATED
   CODE_GENERATED
+  PASSWORD_RESET_REQUESTED
+  PASSWORD_RESET
+}
+
+enum VerificationPurpose {
+  SIGNUP
+  PASSWORD_RESET
 }
 
 model User {
@@ -57,6 +64,7 @@ model VerificationCode {
   userId     String
   user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   codeHash   String
+  purpose    VerificationPurpose @default(SIGNUP)
   expiresAt  DateTime
   attempts   Int       @default(0)
   consumedAt DateTime?

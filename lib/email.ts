@@ -26,3 +26,18 @@ export async function sendVerificationCodeEmail(to: string, code: string): Promi
     `,
   });
 }
+
+export async function sendPasswordResetEmail(to: string, code: string): Promise<void> {
+  const transport = getTransport();
+  await transport.sendMail({
+    from: process.env.SMTP_FROM,
+    to,
+    subject: 'Recuperação de senha - ECU Option Generator',
+    text: `Seu código para redefinir a senha é: ${code}\n\nEle expira em 15 minutos. Se você não solicitou a recuperação de senha, ignore este e-mail.`,
+    html: `
+      <p>Seu código para redefinir a senha do <strong>ECU Option Generator</strong> é:</p>
+      <p style="font-size: 24px; font-weight: bold; letter-spacing: 4px;">${code}</p>
+      <p>Ele expira em 15 minutos. Se você não solicitou a recuperação de senha, ignore este e-mail.</p>
+    `,
+  });
+}

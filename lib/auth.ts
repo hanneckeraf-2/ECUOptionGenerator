@@ -1,3 +1,4 @@
+import { randomInt } from 'node:crypto';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
@@ -77,7 +78,7 @@ export async function verifyPassword(password: string, hash: string): Promise<bo
 
 /** Gera um codigo numerico de 6 digitos para verificacao de primeiro acesso. */
 export function generateVerificationCode(): string {
-  const n = Math.floor(Math.random() * 1_000_000);
+  const n = randomInt(0, 1_000_000);
   return n.toString().padStart(6, '0');
 }
 

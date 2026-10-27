@@ -30,7 +30,7 @@ export async function POST(request: Request) {
   }
 
   const verification = await prisma.verificationCode.findFirst({
-    where: { userId: user.id, consumedAt: null },
+    where: { userId: user.id, purpose: 'SIGNUP', consumedAt: null },
     orderBy: { createdAt: 'desc' },
   });
 

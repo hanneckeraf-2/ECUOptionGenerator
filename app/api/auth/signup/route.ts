@@ -46,7 +46,7 @@ export async function POST(request: Request) {
   }
 
   const lastCode = await prisma.verificationCode.findFirst({
-    where: { userId: user.id },
+    where: { userId: user.id, purpose: 'SIGNUP' },
     orderBy: { createdAt: 'desc' },
   });
   if (lastCode && Date.now() - lastCode.createdAt.getTime() < RESEND_COOLDOWN_SECONDS * 1000) {
